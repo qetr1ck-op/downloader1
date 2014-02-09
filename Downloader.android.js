@@ -4,7 +4,7 @@ Downloader.prototype.preload = function(fileUrl, params, win, fail) {
 	PhoneGap.exec(win, fail, "Downloader", "preload", [fileUrl, params]);
 };
 
-Downloader.install = function() {   
+Downloader.prototype.install = function() {   
 	if(!window.plugins)
 		window.plugins = {};
 
