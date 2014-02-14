@@ -29,3 +29,5 @@ Downloader.install = function() {
 
 	window.plugins.downloader = new Downloader();
 };
+
+module.exports = new Downloader();
