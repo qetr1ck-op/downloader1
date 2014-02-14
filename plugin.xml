@@ -14,23 +14,26 @@
         <clobbers target="downloader" />
     </js-module>
  
-    <!-- android -->
-    <platform name="android">
-	<!-- android-specific elements -->
-	
-        <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="Downloader">
-                <param name="android-package" value="com.phonegap.plugins.downloader.Downloader"/>
-            </feature>
-        </config-file>
-        
-	<source-file src="Downloader.java" target-dir="src/com/phonegap/plugins/downloader" />
-	<!-- permisions
-        <config-file target="AndroidManifest.xml" parent="/*">
-		<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-	</config-file>
-	-->
-    </platform>
+	<platform name="android">
+		<!-- android-specific elements -->
+        	<config-file target="res/xml/config.xml" parent="/*">
+            		<feature name="Downloader">
+                		<param name="android-package" value="com.phonegap.plugins.downloader.Downloader"/>
+            		</feature>
+        	</config-file>
+		<source-file src="Downloader.java" target-dir="src/com/phonegap/plugins/downloader" /> 
+	</platform>
+
+	<platform name="ios">
+		<!-- ios-specific elements -->
+		<header-file src="src/ios/Downloader.h" />
+		<source-file src="src/ios/Downloader.m" />
+		<config-file target="config.xml" parent="/*">
+			<feature name="Downloader" >
+				<param name="ios-package" value="Downloader"/>
+			</feature>
+		</config-file>
+	</platform>
 </plugin>
 
 

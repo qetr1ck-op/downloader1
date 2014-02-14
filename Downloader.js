@@ -23,7 +23,7 @@ function Downloader() {
 	};
 }
 
-Downloader.install = function() {   
+Downloader.prototype.install = function() {   
 	if(!window.plugins)
 		window.plugins = {};
 
