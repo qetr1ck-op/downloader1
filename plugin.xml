@@ -10,7 +10,7 @@
     <license>Apache 2.0</license>
     <keywords>cordova, Downloader</keywords>
                     
-    <js-module src="Downloader.android.js" name="downloader">
+    <js-module src="Downloader.js" name="downloader">
         <clobbers target="downloader" />
     </js-module>
  
