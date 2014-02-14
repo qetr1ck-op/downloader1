@@ -11,7 +11,7 @@
     <keywords>cordova, Downloader</keywords>
                     
     <js-module src="Downloader.js" name="downloader">
-        <clobbers target="downloader" />
+        <clobbers target="Downloader" />
     </js-module>
  
 	<platform name="android">
