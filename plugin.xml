@@ -26,8 +26,8 @@
 
 	<platform name="ios">
 		<!-- ios-specific elements -->
-		<header-file src="src/ios/Downloader.h" />
-		<source-file src="src/ios/Downloader.m" />
+		<header-file src="Downloader.h" />
+		<source-file src="Downloader.m" />
 		<config-file target="config.xml" parent="/*">
 			<feature name="Downloader" >
 				<param name="ios-package" value="Downloader"/>
