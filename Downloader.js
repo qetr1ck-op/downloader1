@@ -1,29 +1,39 @@
-function Downloader() {
-	this.events = {};
-	
-	this.preload = function(url, params, win, fail) {
+function Downloader() {}
+
+if ($ua.iP) {
+	Downloader.events = {};
+
+	Downloader.preload = function(url, params, win, fail) {
 		this.events[url] = {
 			complete: win,
 			error: fail
 		};
 		
-		PhoneGap.exec("Downloader.preload", url, params.fileName, params.dirName, params.Forced || false);
+		cordova.exec("Downloader.preload", url, params.fileName, params.dirName,
+			params.Forced || false);
 	};
-	
-	this.complete = function(pURL, pPath) {
+
+	Downloader.complete = function(pURL, pPath) {
 		var vObj = this.events[pURL];
 		if (vObj && vObj.complete)
 			vObj.complete(pPath);
 	};
-	
-	this.error = function(pURL, pPath) {
+
+	Downloader.error = function(pURL, pPath) {
 		var vObj = this.events[pURL];
 		if (vObj && vObj.error)
 			vObj.error(pPath);
 	};
+
 }
 
-Downloader.prototype.install = function() {   
+if ($ua.droid)
+	Downloader.preload = function(fileUrl, params, win, fail) {
+		cordova.exec(win, fail, "Downloader", "preload", [fileUrl, params]);
+	};
+
+
+Downloader.prototype.install = function() {
 	if(!window.plugins)
 		window.plugins = {};
 
