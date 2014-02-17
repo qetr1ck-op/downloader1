@@ -34,6 +34,9 @@ if ($ua.droid)
 
 
 Downloader.prototype.install = function() {
+	if (Downloader.preload)
+		$log.warn('Plugin Downloader do not loaded corectly');
+
 	if(!window.plugins)
 		window.plugins = {};
 
