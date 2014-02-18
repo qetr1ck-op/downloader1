@@ -17,10 +17,10 @@ import android.util.Log;
 import android.os.Build;
 import android.os.Environment;
 
-import org.apache.cordova.api.CallbackContext;
-import org.apache.cordova.api.CordovaPlugin;
-
-import org.apache.cordova.api.PluginResult;
+//TODO
+import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
 
 public class Downloader extends CordovaPlugin {
 
@@ -84,7 +84,7 @@ public class Downloader extends CordovaPlugin {
 			}
 			else
 				vResult = new PluginResult(PluginResult.Status.INVALID_ACTION, "INVALID ACTION DETECTED: " + pAction);
-						
+//TODO						
 //			vResult.setKeepCallback(true);				
 //			if (vResult.getStatus() == PluginResult.Status.OK.ordinal())
 //				success(vResult, pCallbackId);
@@ -96,12 +96,14 @@ public class Downloader extends CordovaPlugin {
 			return true;
 			
 		} catch (JSONException e) {
+			//TODO
 			//e.printStackTrace();
 			//return new PluginResult(PluginResult.Status.JSON_EXCEPTION, e.getMessage());
 			this.context.sendPluginResult(new PluginResult(PluginResult.Status.JSON_EXCEPTION));
 			return true;
 			
 		} catch (InterruptedException e) {
+			//TODO
 			//e.printStackTrace();
 			//return new PluginResult(PluginResult.Status.ERROR, e.getMessage());
 			this.context.sendPluginResult(new PluginResult(PluginResult.Status.ERROR));
