@@ -33,13 +33,7 @@
 				<param name="ios-package" value="Downloader"/>
 			</feature>
 		</config-file>
-
-	<!-- ios specific file apis -->
-        <!--<js-module src="www/ios/Entry.js" name="Entry1">
-            <merges target="window.Entry" />
-        </js-module>-->	
-
-	</platform>
+    	</platform>
 </plugin>
 
 
