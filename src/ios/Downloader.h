@@ -8,9 +8,11 @@
 	NSMutableArray* params;
 }
 
--(void) preload:(NSMutableArray*)paramArray withDict:(NSMutableDictionary*)options;
+//TODO
+//-(void) preload:(NSMutableArray*)paramArray withDict:(NSMutableDictionary*)options;
+-(void) preload:(CDVInvokedUrlCommand*)command;
 -(void) downloadComplete:(NSMutableArray*)paramArray;
--(void) downloadCompleteWithError:(NSMutableArray*)paramArray; 
+-(void) downloadCompleteWithError:(NSMutableArray*)paramArray;
 -(void) downloadFileFromUrlInBackgroundTask:(NSMutableArray*)paramArray;
 -(void) downloadFileFromUrl:(NSMutableArray*)paramArray;
 @end

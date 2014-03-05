@@ -25,42 +25,42 @@ import org.apache.cordova.PluginResult;
 public class Downloader extends CordovaPlugin {
 
 	private CallbackContext context;
-	
+
 	@Override
 	public boolean execute(String pAction, JSONArray aArgs, CallbackContext callbackContext)  {
 		Log.d("PhoneGapLog", "DOWNLOAD PLUGIN STARTED");
         this.context = callbackContext;
-		
+
 		try {
 			String vFileUrl = aArgs.getString(0);
 			JSONObject vParams = aArgs.getJSONObject(1);
 
-			String vFileName = vParams.has("fileName") ? 
+			String vFileName = vParams.has("fileName") ?
 					vParams.getString("fileName"):
 					vFileUrl.substring(vFileUrl.lastIndexOf("/")+1);
 
 			String vDirName = vParams.has("dirName") ?
 					vParams.getString("dirName"):
 					"sdcard/download";
-					
+
 			Boolean vForced = vParams.has("Forced") ?
 					vParams.has("Forced") :
 					false;
-					
+
 			File vDir = new File(vDirName);
 			if (!vDir.exists()) {
 				 File root = Environment.getExternalStorageDirectory();
-	             if (root.canWrite()) {	
+	             if (root.canWrite()) {
 	            	 Log.d("PhoneGapLog", "EXTERNAL STORAGE DIR: " + root.getAbsolutePath());
-	            	 if (vDir.mkdirs())	            		 
+	            	 if (vDir.mkdirs())
 	            		 Log.d("PhoneGapLog", "directory " + vDirName + " created");
 	            	 else
 	            		 Log.d("PhoneGapLog", "directory " + vDirName + " was not created");
 	             }
 	             else
-	            	 Log.d("PhoneGapLog", "CAN'T WRITE TO ROOT");	            	 
-			}			
-					
+	            	 Log.d("PhoneGapLog", "CAN'T WRITE TO ROOT");
+			}
+
 			PluginResult vResult;
 			if (pAction.equals("preload")) {
 				File vFile = new File(vDirName, vFileName);
@@ -69,14 +69,14 @@ public class Downloader extends CordovaPlugin {
 					if (vData.length > 0) {
 						if (saveToFile(vFile, vData))
 							vResult = new PluginResult(PluginResult.Status.OK, "file:///" + vDirName + "/" + vFileName);
-						else 							
+						else
 							vResult = new PluginResult(PluginResult.Status.ERROR, "Save to File Error");
-						
-						vData = null;						
+
+						vData = null;
 					}
 					else
 						vResult = new PluginResult(PluginResult.Status.ERROR, "Download File Error");
-					
+
 					vFile = null;
 				}
 				else
@@ -84,8 +84,8 @@ public class Downloader extends CordovaPlugin {
 			}
 			else
 				vResult = new PluginResult(PluginResult.Status.INVALID_ACTION, "INVALID ACTION DETECTED: " + pAction);
-//TODO						
-//			vResult.setKeepCallback(true);				
+//TODO
+//			vResult.setKeepCallback(true);
 //			if (vResult.getStatus() == PluginResult.Status.OK.ordinal())
 //				success(vResult, pCallbackId);
 //			else
@@ -94,14 +94,14 @@ public class Downloader extends CordovaPlugin {
 			Log.d("PhoneGapLog", "DOWNLOAD PLUGIN FINISHED");
 			this.context.sendPluginResult(vResult);
 			return true;
-			
+
 		} catch (JSONException e) {
 			//TODO
 			//e.printStackTrace();
 			//return new PluginResult(PluginResult.Status.JSON_EXCEPTION, e.getMessage());
 			this.context.sendPluginResult(new PluginResult(PluginResult.Status.JSON_EXCEPTION));
 			return true;
-			
+
 		} catch (InterruptedException e) {
 			//TODO
 			//e.printStackTrace();
@@ -115,12 +115,12 @@ public class Downloader extends CordovaPlugin {
 	private byte[] downloadUrl(String pFileUrl) throws InterruptedException, JSONException {
 		ByteArrayOutputStream vResult = new ByteArrayOutputStream();
 		vResult.reset();
-		
+
 		try {
 			Log.d("PhoneGapLog", "Downloading " + pFileUrl);
 
 			URL vUrl = new URL(pFileUrl);
-			
+
 			HttpURLConnection vHTTP = (HttpURLConnection) vUrl.openConnection();
 			vHTTP.setRequestMethod("GET");
 			if (Build.VERSION.SDK_INT < 13 /*HONEYCOMB_MR2*/) // To avoid download issue. Should be adjusted.
@@ -128,16 +128,16 @@ public class Downloader extends CordovaPlugin {
 			vHTTP.connect();
 
 			Log.d("PhoneGapLog", "Download start");
-			
-			InputStream vStream = vHTTP.getInputStream();			
-						
+
+			InputStream vStream = vHTTP.getInputStream();
+
 			int vReaded = 0;
 			byte[] buffer = new byte[1024];
-			while ((vReaded = vStream.read(buffer)) > 0)				
-				vResult.write(buffer, 0, vReaded);			
+			while ((vReaded = vStream.read(buffer)) > 0)
+				vResult.write(buffer, 0, vReaded);
 
 			buffer = null;
-			Log.d("PhoneGapLog", "Download f inished");			
+			Log.d("PhoneGapLog", "Download f inished");
 		}
 		catch (FileNotFoundException e) {
 			Log.d("PhoneGapLog", "File Not Found: " + e);
@@ -145,25 +145,25 @@ public class Downloader extends CordovaPlugin {
 		catch (IOException e) {
 			Log.d("PhoneGapLog", "Error: " + e);
 		}
-		
+
 		return vResult.toByteArray();
 	}
 
 	private Boolean saveToFile(File pFile, byte[] pData) throws InterruptedException, JSONException {
 		try {
-			FileOutputStream vOutput = new FileOutputStream(pFile); 
+			FileOutputStream vOutput = new FileOutputStream(pFile);
 			vOutput.write(pData, 0, pData.length);
 			vOutput.close();
 		}
 		catch (FileNotFoundException e) {
 			Log.d("PhoneGapLog", "File Not Found: " + e);
 			return false;
-		}		
+		}
 		catch (IOException e) {
 			Log.d("PhoneGapLog", "Error: " + e);
 			return false;
 		}
-		
+
 		return true;
-	}	
+	}
 }

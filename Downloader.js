@@ -1,6 +1,6 @@
 function Downloader() {}
 
-if ($ua.iP) {
+if ($ua.iP()) {
 	Downloader.events = {};
 
 	Downloader.prototype.preload = function(url, params, win, fail) {
@@ -8,9 +8,9 @@ if ($ua.iP) {
 			complete: win,
 			error: fail
 		};
-		
-		cordova.exec("Downloader.preload", url, params.fileName, params.dirName,
-			params.Forced || false);
+
+		cordova.exec(win, fail, "Downloader", "preload",
+		             [url, params.fileName, params.dirName, params.Forced || false]);
 	};
 
 	Downloader.prototype.complete = function(pURL, pPath) {
@@ -19,7 +19,7 @@ if ($ua.iP) {
 			vObj.complete(pPath);
 	};
 
-	Downloader.error = function(pURL, pPath) {
+	Downloader.prototype.error = function(pURL, pPath) {
 		var vObj = this.events[pURL];
 		if (vObj && vObj.error)
 			vObj.error(pPath);
@@ -27,7 +27,7 @@ if ($ua.iP) {
 
 }
 
-if ($ua.droid)
+if ($ua.droid())
 	Downloader.prototype.preload = function(fileUrl, params, win, fail) {
 		cordova.exec(win, fail, "Downloader", "preload", [fileUrl, params]);
 	};
