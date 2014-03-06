@@ -4,7 +4,7 @@ if ($ua.iP()) {
 	Downloader.events = {};
 
 	Downloader.prototype.preload = function(url, params, win, fail) {
-		this.events[url] = {
+		Downloader.events[url] = {
 			complete: win,
 			error: fail
 		};
@@ -14,13 +14,13 @@ if ($ua.iP()) {
 	};
 
 	Downloader.prototype.complete = function(pURL, pPath) {
-		var vObj = this.events[pURL];
+		var vObj = Downloader.events[pURL];
 		if (vObj && vObj.complete)
 			vObj.complete(pPath);
 	};
 
 	Downloader.prototype.error = function(pURL, pPath) {
-		var vObj = this.events[pURL];
+		var vObj = Downloader.events[pURL];
 		if (vObj && vObj.error)
 			vObj.error(pPath);
 	};
